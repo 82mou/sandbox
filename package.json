@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/82mou/sandbox#readme",
   "dependencies": {
+    "express": "^4.15.2",
+    "express-graphql": "^0.6.4",
     "graphql": "^0.9.3"
   },
   "devDependencies": {
