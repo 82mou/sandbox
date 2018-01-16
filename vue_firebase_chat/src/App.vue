@@ -10,9 +10,6 @@
 
     <!-- ボタン類 -->
     <div>
-      <button type="button" class="btn btn-default" @click="login">
-        匿名ユーザーでログイン
-      </button>
       <button type="button" class="btn btn-default" @click="sendMessage">
         送信
       </button>
@@ -38,29 +35,9 @@
       }
     },
     created () {
-      // 認証チェック
-      firebase.auth().onAuthStateChanged( user => { // eslint-disable-line
-        if (user) {
-          console.log('ログイン状態.')
-          this.listen()
-        } else {
-          console.log('ログインしていない状態')
-        }
-      })
+      this.listen();
     },
     methods: {
-      // ログイン関数
-      login () {
-        firebase.auth().signInAnonymously().then(e => { // eslint-disable-line
-          console.log(e);
-          this.listen();
-        }).catch((error) => {
-          // ログインのエラーメッセージ
-          var errorCode = error.code; // eslint-disable-line
-          var errorMessage = error.message; // eslint-disable-line
-          console.log('ログインエラーメッセージ', errorCode, errorMessage)
-        }); // eslint-disable-line
-      },
       // データベースの変更を購読、最新状態をlistにコピーする
       listen () {
         firebase.database().ref('myBoard/').on('value', snapshot => { // eslint-disable-line
@@ -73,13 +50,6 @@
             })
             this.list = list;
           }
-        })
-      },
-      // ダミーデータをfirebaseに送信
-      pushData () {
-        firebase.database().ref('myBoard/').push({ // eslint-disable-line
-          name: 'test',
-          message: 'foo'
         })
       },
       sendMessage () {
